@@ -57,7 +57,7 @@ public abstract class BinaryHeap<T> {
      * the number of elements that can be stored in heap. This means the true
      * size is the specified size plus one (size + 1)
      *
-     * @param size The user defined size of the heap
+     * @param size The specified size of the heap
      */
     protected BinaryHeap(int size) {
         _heap = (T[]) new Object[size + 1];
@@ -68,7 +68,7 @@ public abstract class BinaryHeap<T> {
      * Initializes a new binary heap with default size, which allows 32 elements
      * to be stored. As the first element must be null, the true size is 33
      *
-     * @param comp The user defined comparator used by heap
+     * @param comp The specified comparator used by heap
      */
     protected BinaryHeap(Comparator<? super T> comp) {
         _heap = (T[]) new Object[INITIAL_SIZE];
@@ -80,8 +80,8 @@ public abstract class BinaryHeap<T> {
      * the number of elements that can be stored in heap. This means the true
      * size is the specified size plus one (size + 1)
      *
-     * @param size The user defined size of the heap
-     * @param comp The user defined comparator used by heap
+     * @param size The specified size of the heap
+     * @param comp The specified comparator used by heap
      */
     protected BinaryHeap(int size, Comparator<? super T> comp) {
         _heap = (T[]) new Object[size + 1];
@@ -102,7 +102,7 @@ public abstract class BinaryHeap<T> {
 
         T[] newHeap = (T[]) new Object[newSize];
 
-        for (int i = 0; i < size(); ++i) {
+        for (int i = 0; i <= size(); ++i) {
             newHeap[i] = _heap[i];
         }
 

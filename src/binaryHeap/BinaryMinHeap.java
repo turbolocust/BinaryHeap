@@ -44,7 +44,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
      * means the true size is the specified size plus one (size + 1). In the
      * minimum heap, the smallest element is at the first position
      *
-     * @param size The user defined size of the heap
+     * @param size The specified size of the heap
      */
     public BinaryMinHeap(int size) {
         super(size);
@@ -55,7 +55,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
      * elements to be stored. As the first element must be null, the true size
      * is 33. In the minimum heap, the smallest element is at the first position
      *
-     * @param comp The user defined comparator used by heap
+     * @param comp The specified comparator used by heap
      */
     public BinaryMinHeap(Comparator<? super T> comp) {
         super(comp);
@@ -67,8 +67,8 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
      * means the true size is the specified size plus one (size + 1). In the
      * minimum heap, the smallest element is at the first position
      *
-     * @param size The user defined size of the heap
-     * @param comp The user defined comparator used by heap
+     * @param size The specified size of the heap
+     * @param comp The specified comparator used by heap
      */
     public BinaryMinHeap(int size, Comparator<? super T> comp) {
         super(size, comp);
@@ -81,8 +81,8 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
         } else if (isEmpty()) {
             _heap[1] = element;
         } else {
-            if (_heap[size()] != null || _heap[size() - 1] != null) {
-                resize((size() * 2) + 1);
+            if (_heap[size()] != null) {
+                resize((size() + 1 ) * 2);
             }
             if (_comp != null) {
                 siftUpComparator(element);
@@ -116,57 +116,49 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     @SuppressWarnings("unchecked")
     protected void siftUpComparable(T element) {
         int i = indexOfLastElement() + 1;
-        _heap[i] = element;
-        while (i > 1) {
-            if (_heap[i / 2] != null) {
-                if (((Comparable<? super T>) _heap[i / 2]).compareTo((T) _heap[i]) > 0) {
-                    swap(i, i / 2);
-                }
-            } else {
-                swap(i, i / 2);
-            }
+        while (i > 1 && ((Comparable<? super T>) element).compareTo((T) _heap[i / 2]) < 0) {
+            _heap[i] = _heap[i / 2];
             i = i / 2;
         }
+        _heap[i] = element;
     }
 
     @Override
     protected void siftUpComparator(T element) {
         int i = indexOfLastElement() + 1;
         _heap[i] = element;
-        while (i > 1) {
-            if (_heap[i / 2] != null) {
-                if (_comp.compare(_heap[i / 2], _heap[i]) > 0) {
-                    swap(i, i / 2);
-                }
-            } else {
-                swap(i, i / 2);
-            }
+        while (i > 1 && _comp.compare(element, _heap[i / 2]) < 0) {
+            _heap[i] = _heap[i / 2];
             i = i / 2;
         }
+        _heap[i] = element;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     protected void siftDownComparable() {
-        int i = 1;
+        int i = 1, parent = i;
         int leftChild = i * 2;
         int rightChild = i * 2 + 1;
 
-        while (i * 2 < _heap.length) {
-            if (_heap[leftChild] != null && _heap[rightChild] != null) {
-                if (((Comparable<? super T>) _heap[i]).compareTo((T) _heap[leftChild]) <= 0
-                        && ((Comparable<? super T>) _heap[i]).compareTo((T) _heap[rightChild]) <= 0) {
-                    break;
+        while (rightChild < _heap.length) {
+            if (_heap[leftChild] != null) {
+                if (((Comparable<? super T>) _heap[leftChild]).compareTo((T) _heap[parent]) < 0) {
+                    parent = leftChild;
                 }
-                if (((Comparable<? super T>) _heap[leftChild]).compareTo((T) _heap[rightChild]) > 0) {
-                    swap(i, rightChild);
-                } else if (((Comparable<? super T>) _heap[leftChild]).compareTo((T) _heap[rightChild]) < 0) {
-                    swap(i, leftChild);
+            }
+            if (_heap[rightChild] != null) {
+                if (((Comparable<? super T>) _heap[rightChild]).compareTo((T) _heap[parent]) < 0) {
+                    parent = rightChild;
                 }
+            }
+            /*swap if child is smaller than its parent*/
+            if (parent != i) {
+                swap(i, parent);
             } else {
                 break;
             }
-            i *= 2;
+            i = parent;
             leftChild = i * 2;
             rightChild = i * 2 + 1;
         }
@@ -174,25 +166,28 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     @Override
     protected void siftDownComparator() {
-        int i = 1;
+        int i = 1, parent = i;
         int leftChild = i * 2;
         int rightChild = i * 2 + 1;
 
-        while (i * 2 < _heap.length) {
-            if (_heap[leftChild] != null && _heap[rightChild] != null) {
-                if (_comp.compare(_heap[i], _heap[leftChild]) <= 0
-                        && _comp.compare(_heap[i], _heap[rightChild]) <= 0) {
-                    break;
+        while (rightChild < _heap.length) {
+            if (_heap[leftChild] != null) {
+                if (_comp.compare(_heap[leftChild], _heap[parent]) < 0) {
+                    parent = leftChild;
                 }
-                if (_comp.compare(_heap[leftChild], _heap[rightChild]) > 0) {
-                    swap(i, rightChild);
-                } else if (_comp.compare(_heap[leftChild], _heap[rightChild]) < 0) {
-                    swap(i, leftChild);
+            }
+            if (_heap[rightChild] != null) {
+                if (_comp.compare(_heap[rightChild], _heap[parent]) < 0) {
+                    parent = rightChild;
                 }
+            }
+            /*swap if child is smaller than its parent*/
+            if (parent != i) {
+                swap(i, parent);
             } else {
                 break;
             }
-            i *= 2;
+            i = parent;
             leftChild = i * 2;
             rightChild = i * 2 + 1;
         }

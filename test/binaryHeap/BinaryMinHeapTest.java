@@ -57,7 +57,7 @@ public class BinaryMinHeapTest {
         System.out.println("MIN HEAP");
         System.out.println("add");
         Object value = "value";
-        BinaryMinHeap<Object> instance = new BinaryMinHeap<>();
+        BinaryHeap<Object> instance = new BinaryMinHeap<>();
         instance.add(value);
     }
 
@@ -67,15 +67,9 @@ public class BinaryMinHeapTest {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        Integer value1 = 1;
-        Integer value2 = 2;
-        Integer value3 = 3;
-        Integer value4 = 4;
-        Integer value5 = 2;
-        Integer value6 = 4;
-        Integer value7 = 8;
-        Integer value8 = 5;
-        BinaryMinHeap<Integer> instance = new BinaryMinHeap<>(12);
+        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
+        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>(12);
         instance.add(value1);
         instance.add(value2);
         instance.add(value3);
@@ -91,4 +85,27 @@ public class BinaryMinHeapTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of remove method with comparator, of class BinaryMaxHeap.
+     */
+    @Test
+    public void testRemoveComparator() {
+        System.out.println("removeComparator");
+        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
+        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>(12, (Integer i1, Integer i2) -> (i1.compareTo(i2)));
+        instance.add(value1);
+        instance.add(value2);
+        instance.add(value3);
+        instance.add(value4);
+        instance.add(value5);
+        instance.add(value6);
+        instance.add(value7);
+        instance.add(value8);
+        System.out.println(Arrays.toString(instance.toArray()));
+        Integer expResult = 1; //smallest value
+        Integer result = instance.remove();
+        System.out.println(Arrays.toString(instance.toArray()));
+        assertEquals(expResult, result);
+    }
 }

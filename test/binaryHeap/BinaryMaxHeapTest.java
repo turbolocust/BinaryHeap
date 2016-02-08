@@ -17,6 +17,7 @@
 package binaryHeap;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -57,7 +58,7 @@ public class BinaryMaxHeapTest {
         System.out.println("MAX HEAP");
         System.out.println("add");
         Object value = "value";
-        BinaryMaxHeap<Object> instance = new BinaryMaxHeap<>();
+        BinaryHeap<Object> instance = new BinaryMaxHeap<>();
         instance.add(value);
     }
 
@@ -67,15 +68,33 @@ public class BinaryMaxHeapTest {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        Integer value1 = 1;
-        Integer value2 = 2;
-        Integer value3 = 3;
-        Integer value4 = 4;
-        Integer value5 = 2;
-        Integer value6 = 4;
-        Integer value7 = 8;
-        Integer value8 = 5;
-        BinaryMaxHeap<Integer> instance = new BinaryMaxHeap<>(12);
+        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
+        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
+        BinaryHeap<Integer> instance = new BinaryMaxHeap<>(12);
+        instance.add(value1);
+        instance.add(value2);
+        instance.add(value3);
+        instance.add(value4);
+        instance.add(value5);
+        instance.add(value6);
+        instance.add(value7);
+        instance.add(value8);
+        System.out.println(Arrays.toString(instance.toArray()));
+        Integer expResult = 8; //largest value
+        Integer result = instance.remove();
+        System.out.println(Arrays.toString(instance.toArray()));
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of remove method with comparator, of class BinaryMaxHeap.
+     */
+    @Test
+    public void testRemoveComparator() {
+        System.out.println("removeComparator");
+        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
+        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
+        BinaryHeap<Integer> instance = new BinaryMaxHeap<>(12, (Integer i1, Integer i2) -> (i1.compareTo(i2)));
         instance.add(value1);
         instance.add(value2);
         instance.add(value3);
