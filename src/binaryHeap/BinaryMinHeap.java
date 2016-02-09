@@ -30,9 +30,10 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Initializes a new binary minimum heap with default size, which allows 32
-     * elements to be stored. As the first element must be null, the true size
-     * is 33. In the minimum heap, the smallest element is at the first position
+     * Initializes a binary minimum heap with default size, which allows 32
+     * elements to be stored. As the first element must be {@code null}, the
+     * true size of the heap is 33. In a minimum heap, the smallest element is
+     * the root element
      */
     public BinaryMinHeap() {
         super();
@@ -40,9 +41,9 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     /**
      * Initializes a new binary minimum heap with specified size. The size
-     * specified is the number of elements that can be stored in heap. This
-     * means the true size is the specified size plus one (size + 1). In the
-     * minimum heap, the smallest element is at the first position
+     * specified is the number of elements that can be stored in the heap. This
+     * means the true size is the specified size plus one {@code size + 1}. In a
+     * minimum heap, the smallest element is the root element
      *
      * @param size The specified size of the heap
      */
@@ -52,8 +53,9 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     /**
      * Initializes a new binary minimum heap with default size, which allows 32
-     * elements to be stored. As the first element must be null, the true size
-     * is 33. In the minimum heap, the smallest element is at the first position
+     * elements to be stored. As the first element must be {@code null}, the
+     * true size is 33. In a minimum heap, the smallest element is the root
+     * element
      *
      * @param comp The specified comparator used by heap
      */
@@ -63,9 +65,9 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     /**
      * Initializes a new binary minimum heap with specified size. The size
-     * specified is the number of elements that can be stored in heap. This
-     * means the true size is the specified size plus one (size + 1). In the
-     * minimum heap, the smallest element is at the first position
+     * specified is the number of elements that can be stored in the heap. This
+     * means the true size is the specified size plus one {@code size + 1}. In a
+     * minimum heap, the smallest element is the root element
      *
      * @param size The specified size of the heap
      * @param comp The specified comparator used by heap
@@ -82,7 +84,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
             _heap[1] = element;
         } else {
             if (_heap[size()] != null) {
-                resize((size() + 1 ) * 2);
+                resize((size() + 1) * 2);
             }
             if (_comp != null) {
                 siftUpComparator(element);

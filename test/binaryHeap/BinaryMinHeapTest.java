@@ -86,7 +86,7 @@ public class BinaryMinHeapTest {
     }
 
     /**
-     * Test of remove method with comparator, of class BinaryMaxHeap.
+     * Test of remove method with comparator, of class BinaryMinHeap.
      */
     @Test
     public void testRemoveComparator() {

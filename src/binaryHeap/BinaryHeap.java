@@ -29,7 +29,7 @@ import java.util.Comparator;
 public abstract class BinaryHeap<T> {
 
     /**
-     * Allows 32 entries, as first entry must be null in binary heap
+     * Allows 32 entries, as first entry must be {@code null} in a binary heap
      */
     public static final int INITIAL_SIZE = (1 << 5) + 1;
 
@@ -44,8 +44,8 @@ public abstract class BinaryHeap<T> {
     protected final Comparator<? super T> _comp;
 
     /**
-     * Initializes a new binary heap with default size, which allows 32 elements
-     * to be stored. As the first element must be null, the true size is 33.
+     * Initializes a binary heap with default size, which allows 32 elements to
+     * be stored. As the first element must be {@code null}, the true size is 33
      */
     protected BinaryHeap() {
         _heap = (T[]) new Object[INITIAL_SIZE];
@@ -54,8 +54,8 @@ public abstract class BinaryHeap<T> {
 
     /**
      * Initializes a new binary heap with specified size. The size specified is
-     * the number of elements that can be stored in heap. This means the true
-     * size is the specified size plus one (size + 1)
+     * the number of elements that can be stored in the heap. This means the
+     * true size is the specified size plus one {@code size + 1}
      *
      * @param size The specified size of the heap
      */
@@ -65,8 +65,8 @@ public abstract class BinaryHeap<T> {
     }
 
     /**
-     * Initializes a new binary heap with default size, which allows 32 elements
-     * to be stored. As the first element must be null, the true size is 33
+     * Initializes a binary heap with default size, which allows 32 elements to
+     * be stored. As the first element must be {@code null}, the true size is 33
      *
      * @param comp The specified comparator used by heap
      */
@@ -77,8 +77,8 @@ public abstract class BinaryHeap<T> {
 
     /**
      * Initializes a new binary heap with specified size. The size specified is
-     * the number of elements that can be stored in heap. This means the true
-     * size is the specified size plus one (size + 1)
+     * the number of elements that can be stored in the heap. This means the
+     * true size is the specified size plus one {@code size + 1}
      *
      * @param size The specified size of the heap
      * @param comp The specified comparator used by heap
@@ -89,11 +89,11 @@ public abstract class BinaryHeap<T> {
     }
 
     /**
-     * Resizes the heap if possible. This method is called by child classes
+     * Resizes the heap. This method is currently called by child classes only
      *
      * @param newSize The new size of the heap
      * @return False if resize is not possible as new size is smaller than
-     * number of stored elements, true if resize was successful
+     * number of stored elements. True if resize was successful
      */
     protected boolean resize(int newSize) {
         if (newSize < size()) {
@@ -140,7 +140,7 @@ public abstract class BinaryHeap<T> {
     /**
      * The size of the heap, which is the size of elements that can be stored.
      * As the first element must be null, the true size of the heap is the
-     * returned size plus one (size + 1)
+     * returned size plus one {@code size() + 1}
      *
      * @return The size of the heap
      */
@@ -149,7 +149,9 @@ public abstract class BinaryHeap<T> {
     }
 
     /**
-     * Checks whether this heap is empty or not
+     * Checks whether this heap is empty or not. Basically, it will only check
+     * if a root element exists or not, as otherwise it would not be a binary
+     * heap structure
      *
      * @return True if heap is empty, false otherwise
      */
@@ -181,30 +183,34 @@ public abstract class BinaryHeap<T> {
     public abstract T remove();
 
     /**
-     * Sifts an element up after adding it to the heap according to its natural
-     * ordering. {@code NullPointerException} will be thrown if element is null
+     * Shifts an element up after adding it to the heap according to its natural
+     * ordering. {@code NullPointerException} will be thrown if the element to
+     * be inserted is {@code null}
      *
      * @param element The element to be shifted up
      */
     protected abstract void siftUpComparable(T element);
 
     /**
-     * Sifts an element up after adding it to the heap using the comparator of
-     * this class {@code NullPointerException} will be thrown if element is null
+     * Shifts an element up after adding it to the heap using the comparator of
+     * this class. {@code NullPointerException} will be thrown if the element to
+     * be inserted is {@code null}
      *
      * @param element The element to be shifted up
      */
     protected abstract void siftUpComparator(T element);
 
     /**
-     * Sifts elements down after removing the first element using the natural
-     * ordering of the elements in the heap
+     * Shifts elements down after removing the first element using the natural
+     * ordering of the elements in the heap. This is necessary to restore the
+     * heap properties
      */
     protected abstract void siftDownComparable();
 
     /**
-     * Sifts elements down after removing the first element using the comparator
-     * of this class
+     * Shifts elements down after removing the first element using the
+     * comparator of this class. This is necessary to restore the heap
+     * properties
      */
     protected abstract void siftDownComparator();
 
@@ -222,7 +228,7 @@ public abstract class BinaryHeap<T> {
     /**
      * Checks whether the specified element exists at least once in this heap
      *
-     * @param o The element to be checked for containment in this heap
+     * @param o The object to be checked for containment in this heap
      * @return True if element exists, false otherwise
      */
     public boolean contains(Object o) {
@@ -235,10 +241,10 @@ public abstract class BinaryHeap<T> {
     }
 
     /**
-     * Counts the number of nodes of this heap and returns the result. A node is
-     * an element of the heap that is not null
+     * Counts the number of nodes in this heap and returns the result. A node is
+     * simply a stored element in the heap that is not null
      *
-     * @return The number of nodes (elements) of this heap
+     * @return The number of nodes (elements) in this heap
      */
     public int countNodes() {
         int elementCount = 0;
@@ -252,9 +258,10 @@ public abstract class BinaryHeap<T> {
 
     /**
      * Returns the heap of this class. As the heap is already implemented as an
-     * array, this method simply works like a getter
+     * array, this method simply works like a getter. Be aware of, that the
+     * returned array also contains {@code null} elements
      *
-     * @return
+     * @return An array containing the heap structure with its elements
      */
     public Object[] toArray() {
         return _heap;
@@ -270,17 +277,13 @@ public abstract class BinaryHeap<T> {
 
         Object[] heap = ((BinaryHeap<Object>) obj).toArray();
 
-        if (heap.length != _heap.length) {
-            return false;
-        } else {
-            return Arrays.equals(heap, _heap);
-        }
+        return Arrays.equals(heap, _heap);
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 79 * hash + Arrays.deepHashCode(this._heap);
+        hash = 79 * hash + Arrays.deepHashCode(_heap);
         return hash;
     }
 }
