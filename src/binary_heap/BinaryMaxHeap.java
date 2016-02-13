@@ -57,7 +57,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
      * true size is 33. In a maximum heap, the largest element is the root
      * element
      *
-     * @param comp The specified comparator used by heap
+     * @param comp The specified {@code Comparator} used by heap
      */
     public BinaryMaxHeap(Comparator<? super T> comp) {
         super(comp);
@@ -70,7 +70,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
      * maximum heap, the largest element is the root element
      *
      * @param size The specified size of the heap
-     * @param comp The specified comparator used by heap
+     * @param comp The specified {@code Comparator} used by heap
      */
     public BinaryMaxHeap(int size, Comparator<? super T> comp) {
         super(size, comp);
@@ -87,7 +87,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
                 resize((size() + 1) * 2);
             }
             if (_comp != null) {
-                siftUpComparator(element);
+                siftUpUsingComparator(element);
             } else {
                 siftUpComparable(element);
             }
@@ -105,7 +105,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
         _heap[1] = element;
 
         if (_comp != null) {
-            siftDownComparator();
+            siftDownUsingComparator();
         } else {
             siftDownComparable();
         }
@@ -126,7 +126,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
     }
 
     @Override
-    protected void siftUpComparator(T element) {
+    protected void siftUpUsingComparator(T element) {
         int i = indexOfLastElement() + 1;
         _heap[i] = element;
         while (i > 1 && _comp.compare(element, _heap[i / 2]) > 0) {
@@ -167,7 +167,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
     }
 
     @Override
-    protected void siftDownComparator() {
+    protected void siftDownUsingComparator() {
         int i = 1, parent = i;
         int leftChild = i * 2;
         int rightChild = i * 2 + 1;

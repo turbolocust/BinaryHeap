@@ -39,7 +39,7 @@ public abstract class BinaryHeap<T> {
     protected T[] _heap;
 
     /**
-     * The comparator used for comparing objects in heap
+     * The {@code Comparator} used for comparing objects in heap
      */
     protected final Comparator<? super T> _comp;
 
@@ -68,7 +68,7 @@ public abstract class BinaryHeap<T> {
      * Initializes a binary heap with default size, which allows 32 elements to
      * be stored. As the first element must be {@code null}, the true size is 33
      *
-     * @param comp The specified comparator used by heap
+     * @param comp The specified {@code Comparator} used by heap
      */
     protected BinaryHeap(Comparator<? super T> comp) {
         _heap = (T[]) new Object[INITIAL_SIZE];
@@ -81,7 +81,7 @@ public abstract class BinaryHeap<T> {
      * true size is the specified size plus one {@code size + 1}
      *
      * @param size The specified size of the heap
-     * @param comp The specified comparator used by heap
+     * @param comp The specified {@code Comparator} used by heap
      */
     protected BinaryHeap(int size, Comparator<? super T> comp) {
         _heap = (T[]) new Object[size + 1];
@@ -192,13 +192,13 @@ public abstract class BinaryHeap<T> {
     protected abstract void siftUpComparable(T element);
 
     /**
-     * Shifts an element up after adding it to the heap using the comparator of
-     * this class. {@code NullPointerException} will be thrown if the element to
-     * be inserted is {@code null}
+     * Shifts an element up after adding it to the heap using the
+     * {@code Comparator} of this class. {@code NullPointerException} will be
+     * thrown if the element to be inserted is {@code null}
      *
      * @param element The element to be shifted up
      */
-    protected abstract void siftUpComparator(T element);
+    protected abstract void siftUpUsingComparator(T element);
 
     /**
      * Shifts elements down after removing the first element using the natural
@@ -209,17 +209,18 @@ public abstract class BinaryHeap<T> {
 
     /**
      * Shifts elements down after removing the first element using the
-     * comparator of this class. This is necessary to restore the heap
+     * {@code Comparator} of this class. This is necessary to restore the heap
      * properties
      */
-    protected abstract void siftDownComparator();
+    protected abstract void siftDownUsingComparator();
 
     /**
-     * Returns the comparator used to order the elements of this heap, or null
-     * if this heap is sorted according to the natural ordering of its elements
+     * Returns the {@code Comparator} used to order the elements of this heap,
+     * or null if this heap is sorted according to the natural ordering of its
+     * elements
      *
-     * @return The comparator used to order this heap, or null if this heap is
-     * sorted to the natural ordering of its elements
+     * @return The {@code Comparator} used to order this heap, or null if this
+     * heap is sorted to the natural ordering of its elements
      */
     public Comparator<? super T> comparator() {
         return _comp;
