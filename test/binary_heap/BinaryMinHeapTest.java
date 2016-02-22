@@ -69,7 +69,7 @@ public class BinaryMinHeapTest {
         System.out.println("remove");
         Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
         Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
-        BinaryHeap<Integer> instance = new BinaryMinHeap<>(12);
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>(6);
         instance.add(value1);
         instance.add(value2);
         instance.add(value3);
@@ -93,7 +93,7 @@ public class BinaryMinHeapTest {
         System.out.println("removeComparator");
         Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
         Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
-        BinaryHeap<Integer> instance = new BinaryMinHeap<>(12, (Integer i1, Integer i2) -> (i1.compareTo(i2)));
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>(6, (Integer i1, Integer i2) -> (i1.compareTo(i2)));
         instance.add(value1);
         instance.add(value2);
         instance.add(value3);

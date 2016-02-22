@@ -141,7 +141,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
     protected void siftDownComparable() {
         int i = 1, parent = i;
         int leftChild = i * 2;
-        int rightChild = i * 2 + 1;
+        int rightChild = leftChild + 1;
 
         while (rightChild < _heap.length) {
             if (_heap[leftChild] != null) {
@@ -162,7 +162,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
             }
             i = parent;
             leftChild = i * 2;
-            rightChild = i * 2 + 1;
+            rightChild = leftChild + 1;
         }
     }
 
@@ -170,7 +170,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
     protected void siftDownUsingComparator() {
         int i = 1, parent = i;
         int leftChild = i * 2;
-        int rightChild = i * 2 + 1;
+        int rightChild = leftChild + 1;
 
         while (rightChild < _heap.length) {
             if (_heap[leftChild] != null) {
@@ -191,7 +191,7 @@ public class BinaryMaxHeap<T> extends BinaryHeap<T> implements Serializable {
             }
             i = parent;
             leftChild = i * 2;
-            rightChild = i * 2 + 1;
+            rightChild = leftChild + 1;
         }
     }
 }
