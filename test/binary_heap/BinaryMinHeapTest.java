@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias
+ * Copyright (C) 2016 Matthias Fussenegger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,8 @@
  */
 package binary_heap;
 
-import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,7 +29,7 @@ import static org.junit.Assert.*;
  *
  * @author Matthias Fussenegger
  */
-public class BinaryMinHeapTest {
+public class BinaryMinHeapTest implements Testable {
 
     public BinaryMinHeapTest() {
     }
@@ -56,9 +57,9 @@ public class BinaryMinHeapTest {
     public void testAdd() {
         System.out.println("MIN HEAP");
         System.out.println("add");
-        Object value = "value";
-        BinaryHeap<Object> instance = new BinaryMinHeap<>();
-        instance.add(value);
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>();
+        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance);
+        assertEquals(pq.peek(), instance.peek());
     }
 
     /**
@@ -67,22 +68,9 @@ public class BinaryMinHeapTest {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
-        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
-        BinaryHeap<Integer> instance = new BinaryMinHeap<>(6);
-        instance.add(value1);
-        instance.add(value2);
-        instance.add(value3);
-        instance.add(value4);
-        instance.add(value5);
-        instance.add(value6);
-        instance.add(value7);
-        instance.add(value8);
-        System.out.println(Arrays.toString(instance.toArray()));
-        Integer expResult = 1; //smallest value
-        Integer result = instance.remove();
-        System.out.println(Arrays.toString(instance.toArray()));
-        assertEquals(expResult, result);
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>();
+        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance);
+        assertEquals(pq.remove(), instance.remove());
     }
 
     /**
@@ -91,21 +79,13 @@ public class BinaryMinHeapTest {
     @Test
     public void testRemoveComparator() {
         System.out.println("removeComparator");
-        Integer value1 = 1, value2 = 2, value3 = 3, value4 = 4;
-        Integer value5 = 2, value6 = 4, value7 = 8, value8 = 5;
-        BinaryHeap<Integer> instance = new BinaryMinHeap<>(6, (Integer i1, Integer i2) -> (i1.compareTo(i2)));
-        instance.add(value1);
-        instance.add(value2);
-        instance.add(value3);
-        instance.add(value4);
-        instance.add(value5);
-        instance.add(value6);
-        instance.add(value7);
-        instance.add(value8);
-        System.out.println(Arrays.toString(instance.toArray()));
-        Integer expResult = 1; //smallest value
-        Integer result = instance.remove();
-        System.out.println(Arrays.toString(instance.toArray()));
-        assertEquals(expResult, result);
+        Comparator c = (Comparator) (Object o1, Object o2) -> {
+            Integer v1 = (Integer) o1;
+            Integer v2 = (Integer) o2;
+            return v2.compareTo(v1);
+        };
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>(c);
+        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance, c);
+        assertEquals(pq.remove(), instance.remove());
     }
 }
