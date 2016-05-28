@@ -34,7 +34,7 @@ public interface Testable {
      * @param heap The heap that will be filled with random values
      * @return A {@link PriorityQueue} with the same values as in the heap
      */
-    static PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap) {
+    default PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         Random rand = new Random();
         for (int i = 0; i < size; ++i) {
@@ -54,7 +54,7 @@ public interface Testable {
      * @param c The comparator used to initialize the {@link PriorityQueue}
      * @return A {@link PriorityQueue} with the same values as in the heap
      */
-    static PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap, Comparator c) {
+    default PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap, Comparator<Integer> c) {
         PriorityQueue<Integer> pq = new PriorityQueue<>(c);
         Random rand = new Random();
         for (int i = 0; i < size; ++i) {
@@ -64,4 +64,5 @@ public interface Testable {
         }
         return pq;
     }
+
 }

@@ -57,13 +57,14 @@ public class BinaryMaxHeapTest implements Testable {
     public void testAdd() {
         System.out.println("MAX HEAP");
         System.out.println("add");
-        Comparator c = (Comparator) (Object o1, Object o2) -> {
-            Integer v1 = (Integer) o1;
-            Integer v2 = (Integer) o2;
+        //java priority queue needs a comparator to fulfil maximum heap condition
+        Comparator<Integer> c = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>();
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
         assertEquals(pq.peek(), instance.peek());
     }
 
@@ -73,13 +74,14 @@ public class BinaryMaxHeapTest implements Testable {
     @Test
     public void testRemove() {
         System.out.println("remove");
-        Comparator c = (Comparator) (Object o1, Object o2) -> {
-            Integer v1 = (Integer) o1;
-            Integer v2 = (Integer) o2;
+        //java priority queue needs a comparator to fulfil maximum heap condition
+        Comparator<Integer> c = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>();
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
         assertEquals(pq.remove(), instance.remove());
     }
 
@@ -89,18 +91,20 @@ public class BinaryMaxHeapTest implements Testable {
     @Test
     public void testRemoveComparator() {
         System.out.println("removeComparator");
-        Comparator c1 = (Comparator) (Object o1, Object o2) -> {
-            Integer v1 = (Integer) o1;
-            Integer v2 = (Integer) o2;
+        //java priority queue needs a comparator to fulfil maximum heap condition
+        Comparator<Integer> c1 = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
             return v1.compareTo(v2);
         };
-        Comparator c2 = (Comparator) (Object o1, Object o2) -> {
-            Integer v1 = (Integer) o1;
-            Integer v2 = (Integer) o2;
+        Comparator<Integer> c2 = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>(c1);
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance, c2);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance, c2);
         assertEquals(pq.remove(), instance.remove());
     }
+
 }

@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * Extends BinaryHeap and offers functionality of a minimum priority queue
+ * Extends BinaryHeap and offers functionality of a minimum priority queue.
  *
  * @author Matthias Fussenegger
  * @param <T> Generic type parameter
@@ -118,7 +118,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     @SuppressWarnings("unchecked")
     protected void siftUpComparable(T element) {
         int i = _size + 1;
-        while (i > 1 && ((Comparable<? super T>) element).compareTo((T) _heap[i / 2]) < 0) {
+        while (i > 1 && ((Comparable<? super T>) element).compareTo(_heap[i / 2]) < 0) {
             _heap[i] = _heap[i / 2];
             i = i / 2;
         }
@@ -175,4 +175,5 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
             }
         }
     }
+
 }

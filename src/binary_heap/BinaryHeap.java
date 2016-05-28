@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * Abstract class that represents a binary heap implemented as an array
+ * Abstract class that represents a binary heap implemented as an array.
  *
  * @author Matthias Fussenegger
  * @param <T> Generic type parameter
@@ -29,7 +29,7 @@ import java.util.Comparator;
 public abstract class BinaryHeap<T> {
 
     /**
-     * Allows 32 entries, as first entry is {@code null} in a binary heap
+     * Allows 32 entries, as first entry is {@code null} in this implementation
      */
     public static final int INITIAL_SIZE = (1 << 5) + 1;
 
@@ -289,4 +289,5 @@ public abstract class BinaryHeap<T> {
         hash = 79 * hash + Arrays.deepHashCode(_heap);
         return hash;
     }
+
 }

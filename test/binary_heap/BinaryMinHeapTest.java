@@ -58,7 +58,7 @@ public class BinaryMinHeapTest implements Testable {
         System.out.println("MIN HEAP");
         System.out.println("add");
         BinaryHeap<Integer> instance = new BinaryMinHeap<>();
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance);
         assertEquals(pq.peek(), instance.peek());
     }
 
@@ -69,7 +69,7 @@ public class BinaryMinHeapTest implements Testable {
     public void testRemove() {
         System.out.println("remove");
         BinaryHeap<Integer> instance = new BinaryMinHeap<>();
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance);
         assertEquals(pq.remove(), instance.remove());
     }
 
@@ -79,13 +79,14 @@ public class BinaryMinHeapTest implements Testable {
     @Test
     public void testRemoveComparator() {
         System.out.println("removeComparator");
-        Comparator c = (Comparator) (Object o1, Object o2) -> {
-            Integer v1 = (Integer) o1;
-            Integer v2 = (Integer) o2;
+        Comparator<Integer> c = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMinHeap<>(c);
-        PriorityQueue<Integer> pq = Testable.addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
         assertEquals(pq.remove(), instance.remove());
     }
+    
 }
