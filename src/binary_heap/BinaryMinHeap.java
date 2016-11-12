@@ -31,9 +31,9 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     /**
      * Initializes a binary minimum heap with default size, which allows 32
-     * elements to be stored. As the first element is {@code null}, the true
-     * size of the heap is 33. In a minimum heap, the smallest element is the
-     * root element
+     * elements to be stored. As the first element has to be {@code null}, the
+     * true size of the heap is 33. In a minimum heap, the smallest element is
+     * the root element.
      */
     public BinaryMinHeap() {
         super();
@@ -42,10 +42,11 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     /**
      * Initializes a new binary minimum heap with the specified size. The size
      * specified is the number of elements that can be stored in the heap. This
-     * means that the true size is the specified size plus one {@code size + 1}.
-     * In a minimum heap, the smallest element is the root element
+     * means that the true size of the heap is the specified size plus one
+     * {@code size + 1}. In a minimum heap, the smallest element is the root
+     * element.
      *
-     * @param size The size of the heap
+     * @param size The size of the heap.
      */
     public BinaryMinHeap(int size) {
         super(size);
@@ -53,10 +54,11 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     /**
      * Initializes a new binary minimum heap with default size, which allows 32
-     * elements to be stored. As the first element is {@code null}, the true
-     * size is 33. In a minimum heap, the smallest element is the root element
+     * elements to be stored. As the first element has to be {@code null}, the
+     * true size is 33. In a minimum heap, the smallest element is the root
+     * element.
      *
-     * @param comp The {@link Comparator} used by heap
+     * @param comp The {@link Comparator} used by the heap.
      */
     public BinaryMinHeap(Comparator<? super T> comp) {
         super(comp);
@@ -65,11 +67,11 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     /**
      * Initializes a new binary minimum heap with the specified size. The size
      * specified is the number of elements that can be stored in the heap. This
-     * means that the true size is the specified size plus one {@code size + 1}.
-     * In a minimum heap, the smallest element is the root element
+     * means that the true size of the heap is the specified size plus one {@code size + 1}.
+     * In a minimum heap, the smallest element is the root element.
      *
-     * @param size The size of the heap
-     * @param comp The {@link Comparator} used by heap
+     * @param size The size of the heap.
+     * @param comp The {@link Comparator} used by the heap.
      */
     public BinaryMinHeap(int size, Comparator<? super T> comp) {
         super(size, comp);
@@ -99,8 +101,8 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
         if (isEmpty()) {
             return null;
         }
-        T element = _heap[_size]; //right outermost leaf
-        T topValue = _heap[1]; //the result to be returned
+        T element = _heap[_size]; // right outermost leaf
+        T topValue = _heap[1]; // the result to be returned
         _heap[1] = element;
 
         if (_comp != null) {
@@ -142,7 +144,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
         while (parent * 2 < _size) {
             if (child + 1 < _size) {
                 if (((Comparable<? super T>) _heap[child + 1]).compareTo(_heap[child]) < 0) {
-                    ++child; //right child is smaller than left one
+                    ++child; // right child is smaller than left one
                 }
             }
             /*swawp if child is smaller than its parent*/
@@ -162,7 +164,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
         while (parent * 2 < _size) {
             if (child + 1 < _size) {
                 if (_comp.compare(_heap[child + 1], _heap[child]) < 0) {
-                    ++child; //right child is smaller than left one
+                    ++child; // right child is smaller than left one
                 }
             }
             /*swawp if child is smaller than its parent*/
