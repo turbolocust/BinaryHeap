@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package binary_heap;
+package org.binaryheap.java;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -29,7 +29,9 @@ import static org.junit.Assert.*;
  *
  * @author Matthias Fussenegger
  */
-public class BinaryMinHeapTest implements Testable {
+public class BinaryMinHeapTest {
+
+    private static final int HEAP_SIZE = 256;
 
     public BinaryMinHeapTest() {
     }
@@ -58,7 +60,25 @@ public class BinaryMinHeapTest implements Testable {
         System.out.println("MIN HEAP");
         System.out.println("add");
         BinaryHeap<Integer> instance = new BinaryMinHeap<>();
-        PriorityQueue<Integer> pq = addRandomValues(200, instance);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance);
+        assertEquals(pq.peek(), instance.peek());
+    }
+
+    @Test
+    public void testAddAll() {
+        System.out.println("MIN HEAP");
+        System.out.println("addAll");
+        BinaryHeap<Integer> instance = new BinaryMinHeap<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        Integer[] values = new Integer[HEAP_SIZE];
+        for (int i = 0; i < HEAP_SIZE; ++i) {
+            int value = TestUtil.generateRandomValue();
+            values[i] = value;
+            pq.add(value);
+        }
+
+        instance.add(values);
         assertEquals(pq.peek(), instance.peek());
     }
 
@@ -69,7 +89,7 @@ public class BinaryMinHeapTest implements Testable {
     public void testRemove() {
         System.out.println("remove");
         BinaryHeap<Integer> instance = new BinaryMinHeap<>();
-        PriorityQueue<Integer> pq = addRandomValues(200, instance);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance);
         assertEquals(pq.remove(), instance.remove());
     }
 
@@ -85,8 +105,8 @@ public class BinaryMinHeapTest implements Testable {
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMinHeap<>(c);
-        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance, c);
         assertEquals(pq.remove(), instance.remove());
     }
-    
+
 }

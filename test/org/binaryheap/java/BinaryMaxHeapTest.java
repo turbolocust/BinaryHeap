@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package binary_heap;
+package org.binaryheap.java;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -29,7 +29,9 @@ import static org.junit.Assert.*;
  *
  * @author Matthias Fussenegger
  */
-public class BinaryMaxHeapTest implements Testable {
+public class BinaryMaxHeapTest {
+
+    private static final int HEAP_SIZE = 256;
 
     public BinaryMaxHeapTest() {
     }
@@ -64,7 +66,32 @@ public class BinaryMaxHeapTest implements Testable {
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>();
-        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance, c);
+        assertEquals(pq.peek(), instance.peek());
+    }
+
+    @Test
+    public void testAddAll() {
+        System.out.println("MAX HEAP");
+        System.out.println("addAll");
+        //java priority queue needs a comparator to fulfil maximum heap condition
+        Comparator<Integer> c = (Integer i1, Integer i2) -> {
+            Integer v1 = i1;
+            Integer v2 = i2;
+            return v2.compareTo(v1);
+        };
+
+        BinaryHeap<Integer> instance = new BinaryMaxHeap<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>(c);
+
+        Integer[] values = new Integer[HEAP_SIZE];
+        for (int i = 0; i < HEAP_SIZE; ++i) {
+            int value = TestUtil.generateRandomValue();
+            values[i] = value;
+            pq.add(value);
+        }
+
+        instance.add(values);
         assertEquals(pq.peek(), instance.peek());
     }
 
@@ -81,7 +108,7 @@ public class BinaryMaxHeapTest implements Testable {
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>();
-        PriorityQueue<Integer> pq = addRandomValues(200, instance, c);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance, c);
         assertEquals(pq.remove(), instance.remove());
     }
 
@@ -103,7 +130,7 @@ public class BinaryMaxHeapTest implements Testable {
             return v2.compareTo(v1);
         };
         BinaryHeap<Integer> instance = new BinaryMaxHeap<>(c1);
-        PriorityQueue<Integer> pq = addRandomValues(200, instance, c2);
+        PriorityQueue<Integer> pq = TestUtil.addRandomValues(HEAP_SIZE, instance, c2);
         assertEquals(pq.remove(), instance.remove());
     }
 

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package binary_heap;
+package org.binaryheap.java;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -29,8 +29,8 @@ import java.util.Comparator;
 public abstract class BinaryHeap<T> {
 
     /**
-     * Allows 32 entries, as first entry has to be {@code null} in this heap
-     * implementation.
+     * Allows 32 entries as first entry has to be {@code null} in this binary
+     * heap implementation.
      */
     public static final int INITIAL_SIZE = (1 << 5) + 1;
 
@@ -159,18 +159,62 @@ public abstract class BinaryHeap<T> {
     }
 
     /**
-     * Adds a new element to the heap.
+     * Adds an element to the heap.
      *
      * @param element The element to be added.
      */
-    public abstract void add(T element);
+    public void add(T element) {
+        if (element == null) {
+            throw new NullPointerException();
+        } else if (isEmpty()) {
+            _heap[1] = element;
+        } else {
+            if (_heap[_heap.length - 1] != null) {
+                resize(_heap.length * 2);
+            }
+            if (_comp != null) {
+                siftUpUsingComparator(element);
+            } else {
+                siftUpComparable(element);
+            }
+        }
+        ++_size;
+    }
+
+    /**
+     * Adds multiple elements to the heap.
+     *
+     * @param elements The elements to be added.
+     */
+    public void add(T... elements) {
+        for (int i = 0; i < elements.length; ++i) {
+            add(elements[i]);
+        }
+    }
 
     /**
      * Removes and returns the first element of the heap.
      *
      * @return The first element of the heap or {@code null} if heap is empty.
      */
-    public abstract T remove();
+    public T remove() {
+        if (isEmpty()) {
+            return null;
+        }
+        T element = _heap[_size]; // right outermost leaf
+        T topValue = _heap[1]; // the result to be returned
+        _heap[1] = element;
+
+        if (_comp != null) {
+            siftDownUsingComparator();
+        } else {
+            siftDownComparable();
+        }
+        _heap[_size] = null;
+        --_size;
+
+        return topValue;
+    }
 
     /**
      * Shifts an element up after adding it to the heap according to its natural

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package binary_heap;
+package org.binaryheap.java;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -24,17 +24,17 @@ import java.util.Random;
  *
  * @author Matthias Fussenegger
  */
-public interface Testable {
+public class TestUtil {
 
     /**
      * Adds random {@link Integer} values up to a maximum size to the specified
-     * heap and returns a {@link PriorityQueue} with the same values
+     * heap and returns a {@link PriorityQueue} with the same values.
      *
-     * @param size The maximum size of values to be added
-     * @param heap The heap that will be filled with random values
-     * @return A {@link PriorityQueue} with the same values as in the heap
+     * @param size The maximum size of values to be added.
+     * @param heap The heap that will be filled with random values.
+     * @return A {@link PriorityQueue} with the same values as in the heap.
      */
-    default PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap) {
+    public static PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         Random rand = new Random();
         for (int i = 0; i < size; ++i) {
@@ -47,14 +47,14 @@ public interface Testable {
 
     /**
      * Adds random {@link Integer} values up to a maximum size to the specified
-     * heap and returns a {@link PriorityQueue} with the same values
+     * heap and returns a {@link PriorityQueue} with the same values.
      *
-     * @param size The maximum size of values to be added
-     * @param heap The heap that will be filled with random values
-     * @param c The comparator used to initialize the {@link PriorityQueue}
-     * @return A {@link PriorityQueue} with the same values as in the heap
+     * @param size The maximum size of values to be added.
+     * @param heap The heap that will be filled with random values.
+     * @param c The comparator used to initialize the {@link PriorityQueue}.
+     * @return A {@link PriorityQueue} with the same values as in the heap.
      */
-    default PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap, Comparator<Integer> c) {
+    public static PriorityQueue<Integer> addRandomValues(int size, BinaryHeap<Integer> heap, Comparator<Integer> c) {
         PriorityQueue<Integer> pq = new PriorityQueue<>(c);
         Random rand = new Random();
         for (int i = 0; i < size; ++i) {
@@ -65,4 +65,12 @@ public interface Testable {
         return pq;
     }
 
+    /**
+     * Returns a random {@link Integer}.
+     *
+     * @return A random {@link Integer}.
+     */
+    public static int generateRandomValue() {
+        return new Random().nextInt();
+    }
 }

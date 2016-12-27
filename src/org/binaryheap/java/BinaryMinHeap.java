@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package binary_heap;
+package org.binaryheap.java;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -67,53 +67,15 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     /**
      * Initializes a new binary minimum heap with the specified size. The size
      * specified is the number of elements that can be stored in the heap. This
-     * means that the true size of the heap is the specified size plus one {@code size + 1}.
-     * In a minimum heap, the smallest element is the root element.
+     * means that the true size of the heap is the specified size plus one
+     * {@code size + 1}. In a minimum heap, the smallest element is the root
+     * element.
      *
      * @param size The size of the heap.
      * @param comp The {@link Comparator} used by the heap.
      */
     public BinaryMinHeap(int size, Comparator<? super T> comp) {
         super(size, comp);
-    }
-
-    @Override
-    public void add(T element) {
-        if (element == null) {
-            throw new NullPointerException();
-        } else if (isEmpty()) {
-            _heap[1] = element;
-        } else {
-            if (_heap[_heap.length - 1] != null) {
-                resize(_heap.length * 2);
-            }
-            if (_comp != null) {
-                siftUpUsingComparator(element);
-            } else {
-                siftUpComparable(element);
-            }
-        }
-        ++_size;
-    }
-
-    @Override
-    public T remove() {
-        if (isEmpty()) {
-            return null;
-        }
-        T element = _heap[_size]; // right outermost leaf
-        T topValue = _heap[1]; // the result to be returned
-        _heap[1] = element;
-
-        if (_comp != null) {
-            siftDownUsingComparator();
-        } else {
-            siftDownComparable();
-        }
-        _heap[_size] = null;
-        --_size;
-
-        return topValue;
     }
 
     @Override
@@ -177,5 +139,4 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
             }
         }
     }
-
 }
