@@ -23,8 +23,10 @@
  */
 package org.binaryheap.java;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Abstract class that represents a binary heap implemented as an array.
@@ -32,7 +34,6 @@ import java.util.Comparator;
  * @author Matthias Fussenegger
  * @param <T> Generic type parameter
  */
-@SuppressWarnings("unchecked")
 public abstract class BinaryHeap<T> {
 
     /**
@@ -61,6 +62,7 @@ public abstract class BinaryHeap<T> {
      * be stored. As the first element has to be {@code null}, the true size is
      * 33.
      */
+    @SuppressWarnings("unchecked")
     protected BinaryHeap() {
         _heap = (T[]) new Object[INITIAL_SIZE];
         _comp = null;
@@ -74,6 +76,7 @@ public abstract class BinaryHeap<T> {
      *
      * @param size The size of the heap.
      */
+    @SuppressWarnings("unchecked")
     protected BinaryHeap(int size) {
         _heap = (T[]) new Object[size + 1];
         _comp = null;
@@ -86,6 +89,7 @@ public abstract class BinaryHeap<T> {
      *
      * @param comp The {@link Comparator} used by the heap.
      */
+    @SuppressWarnings("unchecked")
     protected BinaryHeap(Comparator<? super T> comp) {
         _heap = (T[]) new Object[INITIAL_SIZE];
         _comp = comp;
@@ -100,6 +104,7 @@ public abstract class BinaryHeap<T> {
      * @param size The size of the heap.
      * @param comp The {@link Comparator} used by the heap.
      */
+    @SuppressWarnings("unchecked")
     protected BinaryHeap(int size, Comparator<? super T> comp) {
         _heap = (T[]) new Object[size + 1];
         _comp = comp;
@@ -112,10 +117,11 @@ public abstract class BinaryHeap<T> {
      * @return False if resize is not possible as the new size is smaller than
      * the number of stored elements. True if resizing was successful.
      */
-    protected boolean resize(int newSize) {
+    protected final boolean resize(int newSize) {
         if (newSize < size()) {
             return false;
         }
+        @SuppressWarnings("unchecked")
         T[] newHeap = (T[]) new Object[newSize];
 
         for (int i = 0; i <= _size; ++i) {
@@ -132,7 +138,7 @@ public abstract class BinaryHeap<T> {
      * @param i The position of the first element in the heap.
      * @param j The position of the second element in the heap.
      */
-    protected void swap(int i, int j) {
+    protected final void swap(int i, int j) {
         T temp = _heap[j];
         _heap[j] = _heap[i];
         _heap[i] = temp;
@@ -143,7 +149,7 @@ public abstract class BinaryHeap<T> {
      *
      * @return The number of elements currently stored in the heap.
      */
-    public int size() {
+    public final int size() {
         return _size;
     }
 
@@ -152,7 +158,7 @@ public abstract class BinaryHeap<T> {
      *
      * @return True if the heap is empty, false otherwise.
      */
-    public boolean isEmpty() {
+    public final boolean isEmpty() {
         return _size == 0;
     }
 
@@ -161,7 +167,7 @@ public abstract class BinaryHeap<T> {
      *
      * @return The first element of the heap.
      */
-    public T peek() {
+    public final T peek() {
         return !isEmpty() ? _heap[1] : null;
     }
 
@@ -170,7 +176,7 @@ public abstract class BinaryHeap<T> {
      *
      * @param element The element to be added.
      */
-    public void add(T element) {
+    public final void add(T element) {
         if (element == null) {
             throw new NullPointerException();
         } else if (isEmpty()) {
@@ -193,9 +199,10 @@ public abstract class BinaryHeap<T> {
      *
      * @param elements The elements to be added.
      */
-    public void add(T... elements) {
-        for (int i = 0; i < elements.length; ++i) {
-            add(elements[i]);
+    @SafeVarargs
+    public final void add(T... elements) {
+        for (T element : elements) {
+            add(element);
         }
     }
 
@@ -204,7 +211,7 @@ public abstract class BinaryHeap<T> {
      *
      * @return The first element of the heap or {@code null} if heap is empty.
      */
-    public T remove() {
+    public final T remove() {
         if (isEmpty()) {
             return null;
         }
@@ -217,7 +224,7 @@ public abstract class BinaryHeap<T> {
         } else {
             siftDownComparable();
         }
-        _heap[_size] = null;
+        _heap[_size] = null; // clear reference
         --_size;
 
         return topValue;
@@ -263,7 +270,7 @@ public abstract class BinaryHeap<T> {
      * @return The {@link Comparator} used to order this heap or {@code null} if
      * this heap is sorted to the natural ordering of its elements.
      */
-    public Comparator<? super T> comparator() {
+    public final Comparator<? super T> comparator() {
         return _comp;
     }
 
@@ -275,7 +282,7 @@ public abstract class BinaryHeap<T> {
      * @param o The element to be found in this heap.
      * @return True if element exists, false otherwise.
      */
-    public boolean contains(Object o) {
+    public final boolean contains(Object o) {
         for (int i = 1; i < _size; ++i) {
             if (_heap[i].equals(o)) {
                 return true;
@@ -292,7 +299,7 @@ public abstract class BinaryHeap<T> {
      * @return The index of the specified element if it exists in the heap or a
      * negative {@link Integer} otherwise.
      */
-    public int indexOf(Object o) {
+    public final int indexOf(Object o) {
         if (o != null) {
             for (int i = 1; i < _size; ++i) {
                 if (_heap[i].equals(o)) {
@@ -307,7 +314,7 @@ public abstract class BinaryHeap<T> {
      * Removes all elements in this heap. The heap will be empty after this call
      * returns. The size of the heap will not be affected by this operation.
      */
-    public void clear() {
+    public final void clear() {
         if (!isEmpty()) {
             for (int i = 1; i < _size; ++i) {
                 _heap[i] = null;
@@ -321,10 +328,23 @@ public abstract class BinaryHeap<T> {
      *
      * @return An array consisting of all the elements stored in the heap.
      */
-    public Object[] toArray() {
+    public final Object[] toArray() {
         Object[] elements = new Object[_size];
         for (int i = 1; i <= _size; ++i) {
             elements[i - 1] = _heap[i];
+        }
+        return elements;
+    }
+
+    /**
+     * Returns a list consisting of all the elements stored in the heap.
+     *
+     * @return A list consisting of all the elements in the heap.
+     */
+    public final List<T> toList() {
+        List<T> elements = new ArrayList<>(_size);
+        for (int i = 1; i <= _size; ++i) {
+            elements.add(_heap[i]);
         }
         return elements;
     }
@@ -336,8 +356,8 @@ public abstract class BinaryHeap<T> {
         } else if (obj == null || !obj.getClass().equals(this.getClass())) {
             return false;
         }
+        @SuppressWarnings("unchecked")
         Object[] heap = ((BinaryHeap<Object>) obj).toArray();
-
         return Arrays.equals(heap, _heap);
     }
 

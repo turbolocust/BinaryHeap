@@ -34,7 +34,7 @@ import java.util.Comparator;
  */
 public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3830228799321235002L;
 
     /**
      * Initializes a binary minimum heap with default size, which allows 32

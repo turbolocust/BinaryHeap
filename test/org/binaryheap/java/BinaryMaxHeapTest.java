@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  */
 public class BinaryMaxHeapTest {
 
-    private static final int HEAP_SIZE = 256;
+    private static final int HEAP_SIZE = 1024;
 
     public BinaryMaxHeapTest() {
     }
