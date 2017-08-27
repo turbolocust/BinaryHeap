@@ -32,7 +32,7 @@ import java.util.Comparator;
  * @author Matthias Fussenegger
  * @param <T> Generic type parameter
  */
-public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
+public final class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     private static final long serialVersionUID = 3830228799321235002L;
 
@@ -87,7 +87,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     @Override
     @SuppressWarnings("unchecked")
-    protected void siftUpComparable(T element) {
+    protected final void siftUpComparable(T element) {
         int i = _size + 1;
         while (i > 1 && ((Comparable<? super T>) element).compareTo(_heap[i / 2]) < 0) {
             _heap[i] = _heap[i / 2];
@@ -97,7 +97,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     }
 
     @Override
-    protected void siftUpUsingComparator(T element) {
+    protected final void siftUpUsingComparator(T element) {
         int i = _size + 1;
         while (i > 1 && _comp.compare(element, _heap[i / 2]) < 0) {
             _heap[i] = _heap[i / 2];
@@ -108,7 +108,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
 
     @Override
     @SuppressWarnings("unchecked")
-    protected void siftDownComparable() {
+    protected final void siftDownComparable() {
         int parent = 1, child = parent * 2;
         while (parent * 2 < _size) {
             if (child + 1 < _size) {
@@ -128,7 +128,7 @@ public class BinaryMinHeap<T> extends BinaryHeap<T> implements Serializable {
     }
 
     @Override
-    protected void siftDownUsingComparator() {
+    protected final void siftDownUsingComparator() {
         int parent = 1, child = parent * 2;
         while (parent * 2 < _size) {
             if (child + 1 < _size) {

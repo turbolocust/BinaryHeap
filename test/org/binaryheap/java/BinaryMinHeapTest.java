@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  */
 public class BinaryMinHeapTest {
 
-    private static final int HEAP_SIZE = 1024;
+    private static final int HEAP_SIZE = 2048;
 
     public BinaryMinHeapTest() {
     }

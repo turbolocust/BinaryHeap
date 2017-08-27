@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Abstract class that represents a binary heap implemented as an array.
@@ -91,6 +92,7 @@ public abstract class BinaryHeap<T> {
      */
     @SuppressWarnings("unchecked")
     protected BinaryHeap(Comparator<? super T> comp) {
+        Objects.requireNonNull(comp);
         _heap = (T[]) new Object[INITIAL_SIZE];
         _comp = comp;
     }
@@ -106,6 +108,7 @@ public abstract class BinaryHeap<T> {
      */
     @SuppressWarnings("unchecked")
     protected BinaryHeap(int size, Comparator<? super T> comp) {
+        Objects.requireNonNull(comp);
         _heap = (T[]) new Object[size + 1];
         _comp = comp;
     }
